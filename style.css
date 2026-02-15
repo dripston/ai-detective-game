@@ -163,28 +163,29 @@ body {
 /* Height marker lines */
 .wall-lines {
   position: absolute;
-  top: 15%;
-  /* Lower the wall chart to align with heads */
-  left: 10%;
-  right: 10%;
-  bottom: 25%;
-  border: 2px solid rgba(255, 255, 255, 0.08);
+  top: 10%;
+  left: 5%;
+  right: 5%;
+  bottom: 0;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
   background: repeating-linear-gradient(0deg,
       transparent,
-      transparent calc(100% / 8 - 1px),
-      rgba(255, 255, 255, 0.06) calc(100% / 8 - 1px),
-      rgba(255, 255, 255, 0.06) calc(100% / 8));
+      transparent calc(100% / 10 - 1px),
+      rgba(255, 255, 255, 0.04) calc(100% / 10 - 1px),
+      rgba(255, 255, 255, 0.04) calc(100% / 10));
 }
 
 .height-markers {
   position: absolute;
-  top: 15%;
-  left: 6%;
-  bottom: 25%;
+  top: 10%;
+  left: 2%;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   z-index: 2;
+  padding-bottom: 10vh;
 }
 
 .height-markers span {
@@ -226,41 +227,36 @@ body {
 #suspects-lineup {
   position: absolute;
   bottom: 0;
-  /* Anchored to bottom */
   left: 0;
   right: 0;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: -2%;
-  /* Slight overlap for realism */
+  gap: 20px;
   z-index: 10;
-  height: 85%;
-  /* Fill most of the screen height */
+  height: 90%;
   pointer-events: none;
-  padding-bottom: 8vh;
-  /* Lift slightly above desk */
+  padding-bottom: 5vh;
 }
 
 .suspect-slot {
   position: relative;
-  flex: 0 0 auto;
-  width: 22vh;
-  /* Responsive width based on height */
-  max-width: none;
+  flex: 0 1 18vw;
+  max-width: 350px;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
   pointer-events: auto;
-  margin: 0 -15px;
-  /* Pull them closer */
+  margin: 0 -20px;
+  filter: brightness(0.7) contrast(1.1);
 }
 
 .suspect-slot:hover {
-  transform: scale(1.08) translateY(-8px);
-  filter: brightness(1.2);
+  transform: scale(1.15) translateY(-20px);
+  filter: brightness(1.1) contrast(1.2);
+  z-index: 50;
 }
 
 .suspect-slot:hover .suspect-glow {
@@ -270,7 +266,7 @@ body {
 .suspect-img-wrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 0.7; /* Taller aspect ratio for standing height */
 }
 
 .suspect-img {
@@ -279,7 +275,7 @@ body {
   object-fit: contain;
   position: relative;
   z-index: 2;
-  filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.8));
 }
 
 .mouth-open {
@@ -288,28 +284,30 @@ body {
 
 .suspect-glow {
   position: absolute;
-  bottom: -10%;
-  left: 10%;
-  right: 10%;
-  height: 30%;
-  background: radial-gradient(ellipse, rgba(232, 212, 77, 0.3) 0%, transparent 70%);
+  bottom: 5%;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: radial-gradient(ellipse, rgba(232, 212, 77, 0.4) 0%, transparent 70%);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
   z-index: 1;
-  filter: blur(10px);
+  filter: blur(20px);
 }
 
 .suspect-number {
   font-family: var(--font-display);
-  font-size: 1.1rem;
-  color: var(--noir-text);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 4px 16px;
-  margin-top: 8px;
+  font-size: 1.2rem;
+  color: var(--noir-highlight);
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--noir-highlight);
+  padding: 6px 20px;
+  margin-top: -10px;
   text-align: center;
-  letter-spacing: 2px;
-  backdrop-filter: blur(4px);
+  letter-spacing: 3px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  z-index: 3;
 }
 
 /* Suspect entrance animation */
