@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI Detective - Interrogate suspects, gather evidence, solve the case." />
+  <title>AI Detective — Interrogation Room</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div id="game-container">
+
+    <!-- Cinematic Case Intro Overlay -->
+    <div id="case-intro" class="overlay">
+      <div class="case-intro-content">
+        <div class="case-stamp">CLASSIFIED</div>
+        <h1 class="case-title">Case #2847</h1>
+        <p class="case-subtitle">Murder at the Grand Meridian Hotel</p>
+        <p class="case-desc">
+          A wealthy art collector was found dead in the penthouse suite.
+          Five suspects. One truth. Interrogate them all.
+        </p>
+        <button id="start-btn" class="btn-primary">
+          <span class="btn-icon">🔍</span> Begin Investigation
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Game Scene -->
+    <div id="game-scene" class="hidden">
+
+      <!-- Background — Interrogation room lineup wall -->
+      <div id="lineup-wall">
+        <div class="height-markers">
+          <span>6'</span><span>5'</span><span>4'</span><span>3'</span>
+        </div>
+        <div class="wall-lines"></div>
+        <div class="spotlight"></div>
+        <div class="spotlight spotlight-2"></div>
+      </div>
+
+      <!-- Suspects lineup -->
+      <div id="suspects-lineup">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Detective Desk Foreground -->
+      <div id="desk-foreground">
+        <div class="desk-surface">
+          <div class="desk-item clipboard">📋</div>
+          <div class="desk-item phone">📞</div>
+          <div class="desk-item coffee">☕</div>
+          <div class="desk-item evidence-btn" id="evidence-btn" title="Evidence Board">🔴</div>
+          <div class="desk-item notepad">📒</div>
+        </div>
+      </div>
+
+      <!-- Top HUD -->
+      <div id="hud">
+        <div class="hud-left">
+          <span class="hud-badge">🕵️ DETECTIVE</span>
+          <span class="hud-case">Case #2847</span>
+        </div>
+        <div class="hud-right">
+          <span class="hud-timer" id="hud-timer">⏱ 00:00</span>
+          <span class="hud-suspects-left" id="hud-suspects">5 Suspects Remaining</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Interrogation Overlay -->
+    <div id="interrogation-overlay" class="overlay hidden">
+      <div class="interrogation-room">
+
+        <!-- Back button -->
+        <button id="back-btn" class="btn-back">
+          ← Back to Lineup
+        </button>
+
+        <!-- Suspect close-up -->
+        <div id="interrogation-suspect">
+          <img id="suspect-closeup" src="" alt="Suspect" />
+          <div id="suspect-name-tag" class="name-tag"></div>
+        </div>
+
+        <!-- Dialogue area -->
+        <div id="dialogue-area">
+          <div id="dialogue-box">
+            <p id="dialogue-text">Click the mic to start interrogating...</p>
+          </div>
+          <div class="dialogue-controls">
+            <button id="mic-btn" class="btn-mic" title="Hold to speak">
+              🎙️
+            </button>
+            <button id="accuse-btn" class="btn-accuse" title="Accuse this suspect">
+              ⚖️ Accuse
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
