@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,32 +8,255 @@
   <title>AI Detective — Interrogation Room</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="/style.css" />
 </head>
+
 <body>
   <div id="game-container">
 
-    <!-- Cinematic Case Intro Overlay -->
-    <div id="case-intro" class="overlay">
-      <div class="case-intro-content">
-        <div class="case-stamp">CLASSIFIED</div>
-        <h1 class="case-title">Case #2847</h1>
-        <p class="case-subtitle">Murder at the Grand Meridian Hotel</p>
-        <p class="case-desc">
-          A wealthy art collector was found dead in the penthouse suite.
-          Five suspects. One truth. Interrogate them all.
+    <!-- ========== AUDIO TOGGLE ========== -->
+    <button id="global-mute-btn" class="global-mute-btn" title="Toggle Audio">🔊</button>
+
+    <!-- ========== LANDING PAGE ========== -->
+    <div id="landing">
+      <div class="scanlines"></div>
+      <div class="noise-overlay"></div>
+      <div class="landing-fog fog-1"></div>
+      <div class="landing-fog fog-2"></div>
+      <div class="landing-fog fog-3"></div>
+
+      <div class="floating-particles">
+        <span class="particle" style="--delay:0s; --x:10%; --y:20%; --dur:18s;">🔍</span>
+        <span class="particle" style="--delay:2s; --x:80%; --y:15%; --dur:22s;">📁</span>
+        <span class="particle" style="--delay:4s; --x:25%; --y:70%; --dur:20s;">🖐️</span>
+        <span class="particle" style="--delay:1s; --x:70%; --y:60%; --dur:16s;">🔫</span>
+        <span class="particle" style="--delay:3s; --x:50%; --y:30%; --dur:24s;">💀</span>
+        <span class="particle" style="--delay:5s; --x:15%; --y:85%; --dur:19s;">🗂️</span>
+        <span class="particle" style="--delay:2.5s; --x:90%; --y:45%; --dur:21s;">🔬</span>
+        <span class="particle" style="--delay:6s; --x:40%; --y:90%; --dur:17s;">⚖️</span>
+      </div>
+
+      <div class="landing-content">
+        <div class="landing-badge">
+          <span class="badge-dot"></span>
+          <span>PROTOTYPE v1.0 — CONFIDENTIAL</span>
+        </div>
+
+        <h1 class="glitch-title" data-text="AI DETECTIVE">
+          <span class="glitch-title__line1">AI</span>
+          <span class="glitch-title__line2">DETECTIVE</span>
+        </h1>
+
+        <p class="landing-tagline">
+          <span class="tagline-word" style="--i:0">Every</span>
+          <span class="tagline-word" style="--i:1">suspect</span>
+          <span class="tagline-word" style="--i:2">has</span>
+          <span class="tagline-word" style="--i:3">a</span>
+          <span class="tagline-word" style="--i:4">story.</span>
+          <span class="tagline-word accent" style="--i:5">Only</span>
+          <span class="tagline-word accent" style="--i:6">one</span>
+          <span class="tagline-word accent" style="--i:7">is</span>
+          <span class="tagline-word accent" style="--i:8">lying.</span>
         </p>
-        <button id="start-btn" class="btn-primary">
-          <span class="btn-icon">🔍</span> Begin Investigation
+
+        <div class="landing-chips">
+          <div class="chip"><span class="chip-icon">🎙️</span> Voice Interrogation</div>
+          <div class="chip"><span class="chip-icon">🧠</span> AI-Powered Suspects</div>
+          <div class="chip"><span class="chip-icon">🔎</span> Real-Time Deduction</div>
+        </div>
+
+        <button id="landing-cta" class="neon-btn">
+          <span class="neon-btn__text">ENTER THE PRECINCT</span>
+          <span class="neon-btn__glow"></span>
+          <span class="neon-btn__border"></span>
         </button>
+
+        <p class="landing-footer-text">Press <kbd>Enter</kbd> or click to begin</p>
+      </div>
+
+      <div class="corner-deco corner-tl"></div>
+      <div class="corner-deco corner-tr"></div>
+      <div class="corner-deco corner-bl"></div>
+      <div class="corner-deco corner-br"></div>
+    </div>
+
+    <!-- ========== MODE SELECTION ========== -->
+    <div id="mode-select" class="screen-hidden">
+      <div class="scanlines"></div>
+      <div class="noise-overlay"></div>
+      <div class="landing-fog fog-1"></div>
+      <div class="landing-fog fog-2"></div>
+
+      <div class="select-screen">
+        <div class="select-header">
+          <div class="select-step">STEP 01 <span class="step-divider">/</span> 03</div>
+          <h2 class="select-title">CHOOSE YOUR<br>MODE</h2>
+          <p class="select-subtitle">How do you want to interrogate the suspects?</p>
+        </div>
+
+        <div class="select-cards">
+          <button class="mode-card" data-mode="text" id="mode-text">
+            <div class="mode-card__icon">⌨️</div>
+            <div class="mode-card__label">TEXT MODE</div>
+            <div class="mode-card__desc">Type your questions. Read their answers.</div>
+            <div class="mode-card__tag">ENGLISH ONLY</div>
+          </button>
+
+          <div class="cards-divider">
+            <span>OR</span>
+          </div>
+
+          <button class="mode-card" data-mode="voice" id="mode-voice">
+            <div class="mode-card__icon">🎙️</div>
+            <div class="mode-card__label">VOICE MODE</div>
+            <div class="mode-card__desc">Speak to suspects. Hear them respond.</div>
+            <div class="mode-card__tag">MULTI-LANGUAGE</div>
+          </button>
+        </div>
+      </div>
+
+      <div class="corner-deco corner-tl"></div>
+      <div class="corner-deco corner-tr"></div>
+      <div class="corner-deco corner-bl"></div>
+      <div class="corner-deco corner-br"></div>
+    </div>
+
+    <!-- ========== LANGUAGE SELECTION (Voice only) ========== -->
+    <div id="lang-select" class="screen-hidden">
+      <div class="scanlines"></div>
+      <div class="noise-overlay"></div>
+      <div class="landing-fog fog-1"></div>
+      <div class="landing-fog fog-3"></div>
+
+      <div class="select-screen">
+        <div class="select-header">
+          <button class="select-back" id="lang-back">← BACK</button>
+          <div class="select-step">STEP 02 <span class="step-divider">/</span> 03</div>
+          <h2 class="select-title">SELECT<br>LANGUAGE</h2>
+          <p class="select-subtitle">Choose the language for voice interrogation</p>
+        </div>
+
+        <div class="lang-grid" id="lang-grid">
+          <button class="lang-card" data-lang="en"><span class="lang-label">English</span><span class="lang-native">English</span></button>
+          <button class="lang-card" data-lang="hi"><span class="lang-label">Hindi</span><span class="lang-native">हिन्दी</span></button>
+          <button class="lang-card" data-lang="ta"><span class="lang-label">Tamil</span><span class="lang-native">தமிழ்</span></button>
+          <button class="lang-card" data-lang="te"><span class="lang-label">Telugu</span><span class="lang-native">తెలుగు</span></button>
+          <button class="lang-card" data-lang="kn"><span class="lang-label">Kannada</span><span class="lang-native">ಕನ್ನಡ</span></button>
+          <button class="lang-card" data-lang="ml"><span class="lang-label">Malayalam</span><span class="lang-native">മലയാളം</span></button>
+          <button class="lang-card" data-lang="bn"><span class="lang-label">Bengali</span><span class="lang-native">বাংলা</span></button>
+          <button class="lang-card" data-lang="mr"><span class="lang-label">Marathi</span><span class="lang-native">मराठी</span></button>
+          <button class="lang-card" data-lang="gu"><span class="lang-label">Gujarati</span><span class="lang-native">ગુજરાતી</span></button>
+          <button class="lang-card" data-lang="pa"><span class="lang-label">Punjabi</span><span class="lang-native">ਪੰਜਾਬੀ</span></button>
+        </div>
+      </div>
+
+      <div class="corner-deco corner-tl"></div>
+      <div class="corner-deco corner-tr"></div>
+      <div class="corner-deco corner-bl"></div>
+      <div class="corner-deco corner-br"></div>
+    </div>
+
+    <!-- ========== DIFFICULTY SELECTION ========== -->
+    <div id="diff-select" class="screen-hidden">
+      <div class="scanlines"></div>
+      <div class="noise-overlay"></div>
+      <div class="landing-fog fog-2"></div>
+      <div class="landing-fog fog-3"></div>
+
+      <div class="select-screen">
+        <div class="select-header">
+          <button class="select-back" id="diff-back">← BACK</button>
+          <div class="select-step" id="diff-step">STEP 03 <span class="step-divider">/</span> 03</div>
+          <h2 class="select-title">CASE<br>DIFFICULTY</h2>
+          <p class="select-subtitle">How tough should the case be?</p>
+          <div class="select-notice" id="text-mode-notice" style="display:none;">
+            <span class="notice-icon">ℹ️</span> Text mode only supports <strong>English</strong>
+          </div>
+        </div>
+
+        <div class="diff-cards">
+          <button class="diff-card" data-diff="easy" id="diff-easy">
+            <div class="diff-card__rank">I</div>
+            <div class="diff-card__info">
+              <div class="diff-card__label">EASY</div>
+              <div class="diff-card__desc">Suspects slip up often. More obvious clues.</div>
+            </div>
+          </button>
+
+          <button class="diff-card" data-diff="medium" id="diff-medium">
+            <div class="diff-card__rank">II</div>
+            <div class="diff-card__info">
+              <div class="diff-card__label">MEDIUM</div>
+              <div class="diff-card__desc">Balanced challenge. Suspects are cautious.</div>
+            </div>
+          </button>
+
+          <button class="diff-card" data-diff="hard" id="diff-hard">
+            <div class="diff-card__rank">III</div>
+            <div class="diff-card__info">
+              <div class="diff-card__label">HARD</div>
+              <div class="diff-card__desc">Near-perfect alibis. Every word matters.</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div class="corner-deco corner-tl"></div>
+      <div class="corner-deco corner-tr"></div>
+      <div class="corner-deco corner-bl"></div>
+      <div class="corner-deco corner-br"></div>
+    </div>
+
+    <!-- ========== CINEMATIC GAME INTRO ========== -->
+    <div id="game-intro" class="screen-hidden">
+      <div class="scanlines"></div>
+      <div class="noise-overlay"></div>
+
+      <div class="intro-content">
+        <div class="intro-stamp" id="intro-stamp">
+          <span>CLASSIFIED</span>
+        </div>
+
+        <div class="intro-header">
+          <div class="intro-case-number" id="intro-case-number">CASE #----</div>
+          <div class="intro-date" id="intro-date"></div>
+        </div>
+
+        <div class="intro-dossier">
+          <div class="dossier-paper">
+            <div class="paper-texture"></div>
+            <div class="coffee-stain"></div>
+            <div class="redacted-section" id="redacted-1">
+              <div class="redacted-bar"></div>
+              <span class="redacted-text" id="redacted-text-1"></span>
+            </div>
+            <div class="intro-typewriter" id="intro-typewriter">
+              <p id="intro-text" class="intro-text"></p>
+              <span class="intro-cursor">▋</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="intro-progress">
+          <div class="intro-progress-bar" id="intro-progress-bar"></div>
+        </div>
+
+        <button id="begin-btn" class="neon-btn begin-btn screen-hidden">
+          <span class="neon-btn__text">🔍 BEGIN INVESTIGATION</span>
+          <span class="neon-btn__glow"></span>
+          <span class="neon-btn__border"></span>
+        </button>
+
+        <button id="skip-btn" class="skip-btn">SKIP INTRO ▸▸</button>
       </div>
     </div>
 
-    <!-- Main Game Scene -->
-    <div id="game-scene" class="hidden">
+    <!-- ========== MAIN GAME SCENE ========== -->
+    <div id="game-scene" class="screen-hidden">
 
-      <!-- Background — Interrogation room lineup wall -->
       <div id="lineup-wall">
         <div class="height-markers">
           <span>6'</span><span>5'</span><span>4'</span><span>3'</span>
@@ -42,12 +266,14 @@
         <div class="spotlight spotlight-2"></div>
       </div>
 
-      <!-- Suspects lineup -->
-      <div id="suspects-lineup">
-        <!-- Populated by JS -->
+      <div id="suspects-lineup"></div>
+      <div class="glass-overlay"></div>
+
+      <!-- AI Detective Avatar — click to open partner overlay -->
+      <div id="detective-avatar" class="detective-avatar" title="Talk to your partner">
+        <img src="./assets/characters/detective/mouth_closed.png" id="detective-img" alt="Detective Agent">
       </div>
 
-      <!-- Detective Desk Foreground -->
       <div id="desk-foreground">
         <div class="desk-surface">
           <div class="desk-item clipboard">📋</div>
@@ -58,55 +284,270 @@
         </div>
       </div>
 
-      <!-- Top HUD -->
       <div id="hud">
         <div class="hud-left">
           <span class="hud-badge">🕵️ DETECTIVE</span>
-          <span class="hud-case">Case #2847</span>
+          <span class="hud-case" id="hud-case">Case #----</span>
         </div>
         <div class="hud-right">
           <span class="hud-timer" id="hud-timer">⏱ 00:00</span>
           <span class="hud-suspects-left" id="hud-suspects">5 Suspects Remaining</span>
+          <button id="verdict-btn" class="hud-verdict-btn">⚖️ FILE VERDICT</button>
         </div>
       </div>
 
     </div>
 
-    <!-- Interrogation Overlay -->
-    <div id="interrogation-overlay" class="overlay hidden">
+    <!-- ========== DETECTIVE PARTNER OVERLAY ========== -->
+    <div id="detective-overlay" class="overlay screen-hidden">
+      <div class="detective-room">
+
+        <button id="detective-back-btn" class="btn-back">← Back to Lineup</button>
+
+        <div class="detective-split">
+
+          <!-- Left: Detective character standing full body -->
+          <div class="detective-char-side">
+            <div class="detective-char-wrap" id="detective-char-wrap">
+              <img
+                id="detective-overlay-img"
+                src="./assets/characters/detective/mouth_closed.png"
+                alt="Detective"
+                class="detective-char-img"
+              />
+              <div class="detective-char-glow"></div>
+            </div>
+            <div class="detective-name-tag">DETECTIVE AGENT</div>
+          </div>
+
+          <!-- Right: Info panel -->
+          <div class="detective-info-side">
+
+            <div class="detective-info-header">
+              <div class="detective-info-label">PARTNER STATUS</div>
+              <div class="detective-info-status">
+                <span class="detective-status-dot"></span>
+                <span class="detective-status-text">ACTIVE — ANALYZING CASE</span>
+              </div>
+            </div>
+
+            <div class="detective-info-divider"></div>
+
+            <div class="detective-hint-box">
+              <div class="detective-hint-label">PARTNER INTEL</div>
+              <p class="detective-hint-text" id="detective-hint-text">Your partner is observing the lineup...</p>
+            </div>
+
+            <div class="detective-info-divider"></div>
+
+            <div class="detective-stats-grid">
+              <div class="detective-stat">
+                <div class="detective-stat-label">SUSPECTS</div>
+                <div class="detective-stat-value" id="partner-suspects">5</div>
+              </div>
+              <div class="detective-stat">
+                <div class="detective-stat-label">TIME</div>
+                <div class="detective-stat-value" id="partner-time">00:00</div>
+              </div>
+              <div class="detective-stat">
+                <div class="detective-stat-label">DIFFICULTY</div>
+                <div class="detective-stat-value" id="partner-diff">—</div>
+              </div>
+              <div class="detective-stat">
+                <div class="detective-stat-label">MODE</div>
+                <div class="detective-stat-value" id="partner-mode">—</div>
+              </div>
+            </div>
+
+            <div class="detective-info-divider"></div>
+
+            <button class="detective-ask-btn" id="detective-ask-btn">
+              <span>🎙️</span>
+              <span>ASK YOUR PARTNER</span>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== INTERROGATION OVERLAY ========== -->
+    <div id="interrogation-overlay" class="overlay screen-hidden">
       <div class="interrogation-room">
 
-        <!-- Back button -->
         <button id="back-btn" class="btn-back">
           ← Back to Lineup
         </button>
 
-        <!-- Suspect close-up -->
         <div id="interrogation-suspect">
           <img id="suspect-closeup" src="" alt="Suspect" />
           <div id="suspect-name-tag" class="name-tag"></div>
         </div>
 
-        <!-- Dialogue area -->
         <div id="dialogue-area">
           <div id="dialogue-box">
             <p id="dialogue-text">Click the mic to start interrogating...</p>
           </div>
           <div class="dialogue-controls">
-            <button id="mic-btn" class="btn-mic" title="Hold to speak">
-              🎙️
-            </button>
-            <button id="accuse-btn" class="btn-accuse" title="Accuse this suspect">
-              ⚖️ Accuse
-            </button>
+            <button id="mic-btn" class="btn-mic" title="Hold to speak">🎙️</button>
+            <button id="accuse-btn" class="btn-accuse" title="Accuse this suspect">⚖️ Accuse</button>
           </div>
         </div>
 
       </div>
     </div>
 
+    <!-- ========== EVIDENCE RECAP ========== -->
+    <div id="evidence-recap" class="overlay screen-hidden">
+      <div class="scanlines"></div>
+      <div class="noise-overlay"></div>
+      <div class="verdict-screen">
+        <div class="select-header">
+          <button class="select-back" id="recap-back">← BACK TO LINEUP</button>
+          <div class="select-step">FINAL SUBMISSION</div>
+          <h2 class="select-title">EVIDENCE<br>BOARD</h2>
+          <p class="select-subtitle">Review your findings before filing your verdict</p>
+        </div>
+
+        <div class="recap-suspects" id="recap-suspects"></div>
+
+        <div class="recap-footer">
+          <div class="recap-timer">⏱ TIME: <span id="recap-time">00:00</span></div>
+          <button id="proceed-accuse-btn" class="neon-btn">
+            <span class="neon-btn__text">MAKE YOUR ACCUSATION</span>
+            <span class="neon-btn__glow"></span>
+            <span class="neon-btn__border"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="corner-deco corner-tl"></div>
+      <div class="corner-deco corner-tr"></div>
+      <div class="corner-deco corner-bl"></div>
+      <div class="corner-deco corner-br"></div>
+    </div>
+
+    <!-- ========== ACCUSATION SCREEN ========== -->
+    <div id="accusation-screen" class="overlay screen-hidden">
+      <div class="scanlines"></div>
+      <div class="noise-overlay"></div>
+      <div class="verdict-screen">
+        <div class="select-header">
+          <button class="select-back" id="accuse-back">← BACK</button>
+          <div class="select-step">CHOOSE WISELY</div>
+          <h2 class="select-title">WHO IS<br>GUILTY?</h2>
+          <p class="select-subtitle">Select the suspect you believe committed the crime</p>
+        </div>
+
+        <div class="accuse-lineup" id="accuse-lineup"></div>
+
+        <div id="reasoning-section" class="reasoning-section screen-hidden">
+          <label class="reasoning-label" for="reasoning-input">STATE YOUR REASONING</label>
+          <textarea id="reasoning-input" class="reasoning-input" rows="4"
+            placeholder="Why do you believe this suspect is guilty? What evidence supports your case?"></textarea>
+          <button id="submit-verdict-btn" class="verdict-submit-btn">
+            <span class="verdict-submit-icon">⚖️</span>
+            <span>SUBMIT TO JUDGE</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="corner-deco corner-tl"></div>
+      <div class="corner-deco corner-tr"></div>
+      <div class="corner-deco corner-bl"></div>
+      <div class="corner-deco corner-br"></div>
+    </div>
+
+    <!-- ========== VERDICT REVEAL — CINEMATIC SPLIT SCREEN ========== -->
+    <div id="verdict-reveal" class="overlay screen-hidden">
+      <div class="scanlines"></div>
+      <div class="noise-overlay"></div>
+
+      <div class="verdict-split">
+
+        <!-- LEFT: Verdict Panel -->
+        <div class="verdict-left-panel">
+          <div class="verdict-corner-tl"></div>
+          <div class="verdict-corner-br"></div>
+
+          <p class="verdict-loading" id="verdict-loading">The court is in session...</p>
+
+          <div id="verdict-result" class="verdict-result screen-hidden">
+            <div class="verdict-stamp" id="verdict-stamp"></div>
+            <p id="verdict-text" class="verdict-text"></p>
+            <div id="verdict-suspect-reveal" class="verdict-suspect-reveal"></div>
+          </div>
+
+          <button id="verdict-continue" class="neon-btn begin-btn screen-hidden">
+            <span class="neon-btn__text">VIEW CASE REPORT</span>
+            <span class="neon-btn__glow"></span>
+            <span class="neon-btn__border"></span>
+          </button>
+        </div>
+
+        <!-- RIGHT: Movie Credits Panel -->
+        <div class="credits-panel" id="credits-panel">
+          <div class="credits-vignette-top"></div>
+          <div class="credits-vignette-bottom"></div>
+          <div class="credits-scroll" id="credits-scroll"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========== POST-GAME STATS ========== -->
+    <div id="postgame" class="overlay screen-hidden">
+      <div class="scanlines"></div>
+      <div class="noise-overlay"></div>
+      <div class="postgame-content">
+        <div class="stats-card">
+          <div class="stats-card__header">
+            <div class="stats-rank" id="stats-rank">ROOKIE</div>
+            <div class="stats-badge">🕵️ CASE CLOSED</div>
+          </div>
+          <div class="stats-divider"></div>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-label">CASE</div>
+              <div class="stat-value" id="stat-case">#----</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">DIFFICULTY</div>
+              <div class="stat-value" id="stat-diff">---</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">TIME</div>
+              <div class="stat-value" id="stat-time">00:00</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">MODE</div>
+              <div class="stat-value" id="stat-mode">---</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">YOUR VERDICT</div>
+              <div class="stat-value" id="stat-verdict">---</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">RESULT</div>
+              <div class="stat-value" id="stat-result">---</div>
+            </div>
+          </div>
+          <div class="stats-divider"></div>
+          <button id="play-again-btn" class="neon-btn">
+            <span class="neon-btn__text">PLAY AGAIN</span>
+            <span class="neon-btn__glow"></span>
+            <span class="neon-btn__border"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SCREEN TRANSITION FLASH ========== -->
+    <div id="screen-flash" class="screen-flash"></div>
+
   </div>
 
   <script type="module" src="/main.js"></script>
 </body>
+
 </html>
